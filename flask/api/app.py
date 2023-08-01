@@ -74,7 +74,14 @@ def create_app():
     def check_registed_dog():
         ans = "no"
 
+        known_face_encodings = []
+        known_face_names = []
 
+        enc, name = add_known_face()
+        known_face_encodings.append(enc)
+        known_face_encodings.append(name)
+
+        
 
         return ans
 
