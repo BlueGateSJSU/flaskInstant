@@ -1,3 +1,11 @@
+import dlib
+
+face_landmark_detector_path = 'lib/dogHeadDetector.dat'
+face_landmark_predictor_path = 'lib/landmarkDetector.dat'
+
+detector = dlib.cnn_face_detection_model_v1(face_landmark_detector_path)
+predictor = dlib.shape_predictor(face_landmark_predictor_path)
+
 def find_dog_face(input_image, size=None, debug=False):
     image = input_image.copy()
     
