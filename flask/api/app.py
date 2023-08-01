@@ -27,63 +27,33 @@ def create_app():
 
         photos = request.files.getlist("files[]")
         names  = request.form.getlist("names[]")
-
-        # 모델 불러오기
-
   
         # 사진 인코딩해서 세션에 저장
-        for name, img in (zip(names, photos)):
-
-            
+        for name, img in (zip(names, photos)):  
             img.save(dir+"/"+name+".jpg")
-
-            # #ecoding img
-            # dog_face_img = cv2.imread(dir+"/"+name+".jpg")
-            # dets_locations = face_locations(dog_face_img, 1)
-            # face_encoding = face_recognition.face_encodings(dog_face_img, dets_locations)[0]
-
-            #로컬에 기록
-            # with open(dir+"/"+name+".txt", "w") as f:
-            #     f.write()
-
-
-            # #session
-            # old_encodings = []
-            # old_names = []
-            # if 'known_face_encodings' in session and 'known_face_name' in session:
-            #     print("load session")
-            #     old_encodings = session['known_face_encodings']
-            #     old_names = session['known_face_name']
-            # else :  #로컬에 저장했다가 세션으로 불러옴 / 구현 x
-            #     print("make session")
-            #     session['known_face_encodings'] = []
-            #     session['known_face_name'] = []
-               
-         
-            
-            # old_encodings.append(face_encoding)
-            # old_names.append(name)
-
-            # session['known_face_encodings'] = old_encodings
-            # session['known_face_name'] = old_names
-        
 
         return "good"
     
     @app.route('/check', methods=['POST'])
     def check_registed_dog():
         ans = "no"
+        reqIMG = request.files['target'] # 입력 이미지 저장
+        reqIMG.save("./target/temp.jpg")
 
-        known_face_encodings = []
-        known_face_names = []
+        known_face_encodings = [] # registed data 가져온다
+        known_face_names = []     
 
-        enc, name = add_known_face()
-        known_face_encodings.append(enc)
-        known_face_encodings.append(name)
+        file_list = os.listdir("./registedIMG")
 
-        
+        for f in file_list:
+            enc, name = add_known_face("./registedIMG/"+f, f.split('.')[0])
+            known_face_encodings.append(enc)
+            known_face_names.append(name)
 
-        return ans
+        if checking("./target/temp.jpg", known_face_encodings, known_face_names):
+            return "true"
+        else:
+            return "false"
 
     return app
 

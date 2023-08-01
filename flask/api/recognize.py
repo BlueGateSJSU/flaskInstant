@@ -2,6 +2,7 @@ import dlib
 import face_recognition
 import imutils
 import numpy as np
+import cv2
 
 face_landmark_detector_path = 'lib/dogHeadDetector.dat'
 face_landmark_predictor_path = 'lib/landmarkDetector.dat'
@@ -17,6 +18,7 @@ def add_known_face(face_image_path, name):
     return face_encoding, name
 
 def checking(input_image,known_face_encodings, known_face_names ,size=None): # 얼굴 체크
+    input_image = cv2.imread(input_image)
     image = input_image.copy()
     
     if size:
