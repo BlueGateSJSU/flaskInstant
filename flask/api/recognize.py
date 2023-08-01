@@ -26,21 +26,27 @@ def checking(input_image,known_face_encodings, known_face_names ,size=None): # ì
     face_encodings = face_recognition.face_encodings(image, dets_locations)
     
     face_names = []
+    face_bools = []
     
     for face_encoding in face_encodings:
         matches = face_recognition.compare_faces(known_face_encodings, face_encoding, tolerance=0.4)
         name = "Unknown"
+        flag = False
 
         face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
         best_match_index = np.argmin(face_distances)
  
         if matches[best_match_index]:
             name = known_face_names[best_match_index]
+            flag = True
  
         face_names.append(name)
+        face_bools.append(flag)
 
     for i in range(len(face_names)):
         print(face_names[i])
+
+    return any(face_bools)
     
 
 def find_dog_face(input_image, size=None, debug=False):
