@@ -36,9 +36,16 @@ def create_app():
     
     @app.route('/check', methods=['POST'])
     def check_registed_dog():
-        ans = "no"
+
+        dir = "./target"
+        try:
+            if not os.path.exists(dir):
+                os.makedirs(dir)
+        except OSError:
+            print('Error: Creating directory. ' +  dir, flush=True)
+
         reqIMG = request.files['target'] # 입력 이미지 저장
-        reqIMG.save("./target/temp.jpg")
+        reqIMG.save(dir+"temp.jpg")
 
         known_face_encodings = [] # registed data 가져온다
         known_face_names = []     
@@ -50,7 +57,7 @@ def create_app():
             known_face_encodings.append(enc)
             known_face_names.append(name)
 
-        if checking("./target/temp.jpg", known_face_encodings, known_face_names):
+        if checking(dir+"temp.jpg", known_face_encodings, known_face_names):
             return "true"
         else:
             return "false"
