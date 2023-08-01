@@ -1,10 +1,47 @@
 import dlib
+import face_recognition
+import imutils
+import numpy as np
 
 face_landmark_detector_path = 'lib/dogHeadDetector.dat'
 face_landmark_predictor_path = 'lib/landmarkDetector.dat'
 
 detector = dlib.cnn_face_detection_model_v1(face_landmark_detector_path)
 predictor = dlib.shape_predictor(face_landmark_predictor_path)
+
+def add_known_face(face_image_path, name):
+    face_image = cv2.imread(face_image_path)
+    dets_locations = face_locations(face_image, 1)
+    face_encoding = face_recognition.face_encodings(face_image, dets_locations)[0]
+    
+    return face_encoding, name
+
+def checking(input_image,known_face_encodings, known_face_names ,size=None): # 얼굴 체크
+    image = input_image.copy()
+    
+    if size:
+        image = imutils.resize(image, width=size)
+        
+    dets_locations = face_locations(image)
+    face_encodings = face_recognition.face_encodings(image, dets_locations)
+    
+    face_names = []
+    
+    for face_encoding in face_encodings:
+        matches = face_recognition.compare_faces(known_face_encodings, face_encoding, tolerance=0.4)
+        name = "Unknown"
+
+        face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
+        best_match_index = np.argmin(face_distances)
+ 
+        if matches[best_match_index]:
+            name = known_face_names[best_match_index]
+ 
+        face_names.append(name)
+
+    for i in range(len(face_names)):
+        print(face_names[i])
+    
 
 def find_dog_face(input_image, size=None, debug=False):
     image = input_image.copy()
