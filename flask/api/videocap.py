@@ -3,10 +3,11 @@ import recognize
 import os
 from datetime import datetime
 
-def videoCapture(name):
+def videoCapture(known_face_encodings, known_face_names):
     #output에는 강아지 이름별로 카테고리 및 이름은 현재시간 기준
+    name = ''
     video_path = f"{os.getcwd()}/data/video/temp.mp4"
-    output_img = f"{os.getcwd()}/data//detect/{name}{datetime.now()}.jpg/"
+    output_img = f"{os.getcwd()}/data//detect/{name}{datetime.now().date()}.jpg/"
     
     
     cap = cv2.VideoCapture(video_path)
