@@ -16,6 +16,10 @@ def create_app():
     app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=60)
     app.secret_key = "asdfk"
     
+    @app.route('/', methods=['GET'])
+    def web_cam():
+        return render_template('main.html')
+
     @app.route('/regist', methods=['POST'])
     def upload_photo():
         dir = "./registedIMG"
