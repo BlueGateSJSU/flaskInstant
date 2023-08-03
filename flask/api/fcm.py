@@ -1,13 +1,13 @@
 from pyfcm import FCMNotification
  
 APIKEY = "Your Server Key"
-TOKEN = "Your Token"
- 
+
 # 파이어베이스 콘솔에서 얻어 온 서버 키를 넣어 줌
 push_service = FCMNotification(APIKEY)
  
-def sendMessage(body, title):
+def sendMessage(body, title, token):
     # 메시지 (data 타입)
+    TOKEN = token
     data_message = {
         "body": body,
         "title": title
