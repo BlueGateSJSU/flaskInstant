@@ -7,7 +7,10 @@ import matplotlib.pyplot as plt
 from recognize import *
 import os
 import sys
-sys.stdout.flush()
+from  firebaseImg import *
+
+
+
 
 
 
@@ -38,6 +41,16 @@ def create_app():
 
         return "good"
     
+    @app.route('/fireBaseUpdate', methods=['GET'])
+    def check_fireBase():
+        return "yes"
+
+    @app.route('/fbcheck', methods=['GET'])
+    def check_db():
+        
+        firebaseDownload("/pets/akong", "akong0.jpeg")
+        return "ok"
+
     @app.route('/check', methods=['POST'])
     def check_registed_dog():
 
