@@ -40,16 +40,10 @@ def create_app():
             img.save(dir+"/"+name+".jpg")
 
         return "good"
-    
-    @app.route('/fireBaseUpdate', methods=['GET'])
-    def check_fireBase():
-        return "yes"
-
-    @app.route('/fbcheck', methods=['GET'])
-    def check_db():
-        
-        firebaseDownload("/pets/akong", "akong0.jpeg")
-        return "ok"
+    # @app.route('/regist', methods=['GET'])
+    # def upload_pthoto():   
+    #     firebaseDownload()
+    #     return "ok"
 
     @app.route('/check', methods=['POST'])
     def check_registed_dog():
