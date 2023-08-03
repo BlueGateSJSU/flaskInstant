@@ -35,3 +35,35 @@ def videoCapture(known_face_encodings, known_face_names ,size=None):
 
     # 작업 완료 후, 캡처 해제
     cap.release()
+    
+# def webcamCapture(known_face_encodings, known_face_names ,size=None):
+#     name = ''
+#     output_img = f"{os.getcwd()}/data//detect/{name}{datetime.now()}.jpg/"
+    
+    
+#     cap = cv2.VideoCapture(0)
+    
+#     #비디오 프레임률 추출
+#     frame_rate = cap.get(cv2.CAP_PROP_FPS)
+#     frame_interval = int(frame_rate * 10) #10초 간격으로 캡쳐
+    
+#     frame_count = 0 
+
+#     while True:
+#         # 프레임 읽기
+#         ret, frame = cap.read()
+    
+#         if not ret:
+#             break
+#         # frame = cv2.resize(frame,size)
+#         if frame_count % frame_interval == 0:
+#             if recognize.checking(frame,known_face_encodings,known_face_names):
+#                 cv2.imwrite(output_img,frame)
+#             else:
+#                 continue                
+#         else:
+#             continue
+
+#     # 작업 완료 후, 캡처 해제
+#     cap.release()
+    
