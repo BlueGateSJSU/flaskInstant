@@ -28,6 +28,8 @@ def checking(input_image,known_face_encodings, known_face_names ,size=None): # ì
             os.makedirs(dir)
     except OSError:
         print('Error: Creating directory. ' +  dir, flush=True)
+
+    os.remove(dir+"/result.jpg")
     
     input_image = cv2.imread(input_image)
     image = input_image.copy()
