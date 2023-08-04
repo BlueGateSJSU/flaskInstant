@@ -21,14 +21,7 @@ def add_known_face(face_image_path, name):
     return face_encoding, name
 
 def checking(input_image,known_face_encodings, known_face_names ,size=None): # 얼굴 체크
-    
-    dir = "./output"
-    try:
-        if not os.path.exists(dir):
-            os.makedirs(dir)
-    except OSError:
-        print('Error: Creating directory. ' +  dir, flush=True)
-
+    dir = "./static"
     os.remove(dir+"/result.jpg")
     
     input_image = cv2.imread(input_image)
