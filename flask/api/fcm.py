@@ -6,19 +6,21 @@ from firebase_admin import messaging
 # 파이어베이스 콘솔에서 얻어 온 서버 키를 넣어 줌
 # push_service = FCMNotification(APIKEY)
 cred = credentials.Certificate('./secret/serviceAccountKey.json')
+default = 'cuoJ1qAlTIOZaWcBuCh6Ig:APA91bHGDQVzmtyb9MYiaPJn0569iFU5VwUmL6oxYM64eazDKW45heRTBzz07xjuqZgHtO2muLAWmlgI75sd_T8-CfSiBF697urkE3rD4LAxVLEMPAo753PtVcOi_CqBeZAPjoauwNnY'
 firebase_admin.initialize_app(cred)
-def sendFCM(title='여기는 유민이라 알리고 통신상태 양호한지',body='Im min',token=''):
+def sendFCM(title='여기는 유민이라 알리고 통신상태 양호한지',body='Im min', img='https://edu.sky100.kr:10200/static/result.jpg',token=default):
     registration_token = token
     message = messaging.Message(
         notification = messaging.Notification(
             title=title,
             body=body
+
         ),
         token=registration_token,
     )
     response = messaging.send(message)
     print(response)
-sendFCM(token='cuoJ1qAlTIOZaWcBuCh6Ig:APA91bHGDQVzmtyb9MYiaPJn0569iFU5VwUmL6oxYM64eazDKW45heRTBzz07xjuqZgHtO2muLAWmlgI75sd_T8-CfSiBF697urkE3rD4LAxVLEMPAo753PtVcOi_CqBeZAPjoauwNnY')
+
 
 # def sendMessage(body, title, token):
 #     # 메시지 (data 타입)

@@ -67,7 +67,7 @@ def checking(input_image,known_face_encodings, known_face_names ,size=None): # ì
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(image, name, (left + 3, bottom - 3), font, 0.2, (0, 0, 0), 1)
     
-    cv2.imwrite("./output/result.jpg", image)
+    cv2.imwrite("./static/result.jpg", image)
     return any(face_bools)
 
 

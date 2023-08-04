@@ -67,13 +67,17 @@ def create_app():
             known_face_names.append(name)
         
 
-        checking(dir+"/temp.jpg", known_face_encodings, known_face_names)
+        flag = checking(dir+"/temp.jpg", known_face_encodings, known_face_names)
         # if checking(dir+"/temp.jpg", known_face_encodings, known_face_names):
         #     return "true"
         # else:
         #     return "false"
-        videoCapture(known_face_encodings=known_face_encodings, known_face_names=known_face_names)
-        return send_file("./output/result.jpg", mimetype='image/jpeg')
+        #videoCapture(known_face_encodings=known_face_encodings, known_face_names=known_face_names)
+        if flag:
+            sendFCM(title="door is opend")
+        
+
+        return send_file("./static/result.jpg", mimetype='image/jpeg')
 
     return app
 
