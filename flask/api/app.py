@@ -7,6 +7,7 @@ import os
 from  firebaseImg import *
 from videocap import videoCapture
 from fcm import *
+import time
 
 def create_app():
     app = Flask(__name__)
@@ -74,6 +75,7 @@ def create_app():
         #     return "false"
         #videoCapture(known_face_encodings=known_face_encodings, known_face_names=known_face_names)
         if flag:
+            time.sleep(1)
             sendFCM(title="The door is opened.")
         
 
