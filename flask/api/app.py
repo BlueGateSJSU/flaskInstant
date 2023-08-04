@@ -74,7 +74,7 @@ def create_app():
         #     return "false"
         #videoCapture(known_face_encodings=known_face_encodings, known_face_names=known_face_names)
         if flag:
-            sendFCM(title="door is opend")
+            sendFCM(title="The door is opened.")
         
 
         return send_file("./static/result.jpg", mimetype='image/jpeg')
