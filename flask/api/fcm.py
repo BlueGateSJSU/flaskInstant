@@ -13,15 +13,15 @@ def sendFCM(title='여기는 유민이라 알리고 통신상태 양호한지',b
     message = messaging.Message(
         notification = messaging.Notification(
             title=title,
-            body=body
-
+            body=body,
+            image=img
         ),
         token=registration_token,
     )
     response = messaging.send(message)
     print(response)
 
-
+#sendFCM()
 # def sendMessage(body, title, token):
 #     # 메시지 (data 타입)
 #     TOKEN = token
