@@ -79,7 +79,7 @@ def create_app():
             sendFCM(title="The door is opened.")
         
 
-        return send_file("./static/result.jpg", mimetype='image/jpeg')
+        return send_file("./static/result.png", mimetype='image/png')
 
     return app
 
