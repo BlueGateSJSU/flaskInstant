@@ -1,18 +1,11 @@
-from flask import Flask, jsonify, redirect, render_template, Response, request, session, url_for
+from flask import Flask, jsonify, redirect, render_template, Response, request, url_for, send_file
 from datetime import timedelta
-import dlib, imutils, cv2, face_recognition
-from imutils import face_utils
+
 import numpy as np
-import matplotlib.pyplot as plt
 from recognize import *
 import os
-import sys
 from  firebaseImg import *
-
-
-
-
-
+from videocap import videoCapture
 
 def create_app():
     app = Flask(__name__)
@@ -22,6 +15,10 @@ def create_app():
     @app.route('/', methods=['GET'])
     def web_cam():
         return render_template('main.html')
+    
+    @app.route('/getOutput', methods=['GET'])
+    def get_output():
+        return send_file("./output/result.jpg", mimetype='image/jpeg')
 
     @app.route('/regist', methods=['POST'])
     def upload_photo():
@@ -67,11 +64,15 @@ def create_app():
             enc, name = add_known_face("./registedIMG/"+f, f.split('.')[0])
             known_face_encodings.append(enc)
             known_face_names.append(name)
+        
 
-        if checking(dir+"/temp.jpg", known_face_encodings, known_face_names):
-            return "true"
-        else:
-            return "false"
+        checking(dir+"/temp.jpg", known_face_encodings, known_face_names)
+        # if checking(dir+"/temp.jpg", known_face_encodings, known_face_names):
+        #     return "true"
+        # else:
+        #     return "false"
+        videoCapture(known_face_encodings=known_face_encodings, known_face_names=known_face_names)
+        return send_file("./output/result.jpg", mimetype='image/jpeg')
 
     return app
 

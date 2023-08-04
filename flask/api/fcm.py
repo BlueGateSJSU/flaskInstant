@@ -5,7 +5,7 @@ from firebase_admin import messaging
 
 # 파이어베이스 콘솔에서 얻어 온 서버 키를 넣어 줌
 # push_service = FCMNotification(APIKEY)
-cred = credentials.Certificate('./serviceAccountKey.json')
+cred = credentials.Certificate('./secret/serviceAccountKey.json')
 firebase_admin.initialize_app(cred)
 def sendFCM(title='여기는 유민이라 알리고 통신상태 양호한지',body='Im min',token=''):
     registration_token = token

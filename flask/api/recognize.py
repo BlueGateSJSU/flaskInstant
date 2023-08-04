@@ -3,6 +3,9 @@ import face_recognition
 import imutils
 import numpy as np
 import cv2
+import os
+import dlib, imutils, cv2, face_recognition
+from imutils import face_utils
 
 face_landmark_detector_path = 'lib/dogHeadDetector.dat'
 face_landmark_predictor_path = 'lib/landmarkDetector.dat'
@@ -18,6 +21,14 @@ def add_known_face(face_image_path, name):
     return face_encoding, name
 
 def checking(input_image,known_face_encodings, known_face_names ,size=None): # 얼굴 체크
+    
+    dir = "./output"
+    try:
+        if not os.path.exists(dir):
+            os.makedirs(dir)
+    except OSError:
+        print('Error: Creating directory. ' +  dir, flush=True)
+    
     input_image = cv2.imread(input_image)
     image = input_image.copy()
     
@@ -45,11 +56,21 @@ def checking(input_image,known_face_encodings, known_face_names ,size=None): # �
         face_names.append(name)
         face_bools.append(flag)
 
-    for i in range(len(face_names)):
-        print(face_names[i])
-
-    return any(face_bools)
+    for (top, right, bottom, left), name in zip(dets_locations, face_names):
+        if name != "Unknown":
+            color = (0, 255, 0)
+        else:
+            color = (0, 0, 255)
+ 
+        cv2.rectangle(image, (left, top), (right, bottom), color, 1)
+        cv2.rectangle(image, (left, bottom - 10), (right, bottom), color, cv2.FILLED)
+        font = cv2.FONT_HERSHEY_DUPLEX
+        cv2.putText(image, name, (left + 3, bottom - 3), font, 0.2, (0, 0, 0), 1)
     
+    cv2.imwrite("./output/result.jpg", image)
+    return any(face_bools)
+
+
 
 def find_dog_face(input_image, size=None, debug=False):
     image = input_image.copy()
