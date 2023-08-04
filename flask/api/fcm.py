@@ -8,7 +8,7 @@ from firebase_admin import messaging
 cred = credentials.Certificate('./secret/serviceAccountKey.json')
 default = 'cuoJ1qAlTIOZaWcBuCh6Ig:APA91bHGDQVzmtyb9MYiaPJn0569iFU5VwUmL6oxYM64eazDKW45heRTBzz07xjuqZgHtO2muLAWmlgI75sd_T8-CfSiBF697urkE3rD4LAxVLEMPAo753PtVcOi_CqBeZAPjoauwNnY'
 firebase_admin.initialize_app(cred)
-def sendFCM(title='여기는 유민이라 알리고 통신상태 양호한지',body='Have a nice day!!', img='https://edu.sky100.kr/static/result.jpg',token=default):
+def sendFCM(title='여기는 유민이라 알리고 통신상태 양호한지',body='Have a nice day!!', img='https://edu.sky100.kr/static/result.png',token=default):
     registration_token = token
     message = messaging.Message(
         notification = messaging.Notification(
